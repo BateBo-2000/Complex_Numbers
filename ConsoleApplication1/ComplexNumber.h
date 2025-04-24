@@ -16,24 +16,10 @@ public:
 	ComplexNumber operator+() const;	//returns a copy
 	ComplexNumber operator-() const;	//to not change it
 	
-	ComplexNumber operator+(const ComplexNumber& other) const;
 	ComplexNumber& operator+=(const ComplexNumber& other);
-
-
-	ComplexNumber operator-(const ComplexNumber& other) const;
 	ComplexNumber& operator-=(const ComplexNumber& other);
-
-
-	ComplexNumber operator*(const ComplexNumber& other) const;
 	ComplexNumber& operator*=(const ComplexNumber& other);
-
-
-	ComplexNumber operator/(const ComplexNumber& other) const;
 	ComplexNumber& operator/=(const ComplexNumber& other);
-
-
-	bool operator==(const ComplexNumber& other) const;
-	bool operator!=(const ComplexNumber& other) const;
 
 	friend std::istream& operator>>(std::istream& input, ComplexNumber& z);
 	friend std::ostream& operator<<(std::ostream& output, const ComplexNumber& z);
@@ -50,10 +36,13 @@ private:
 	double im;
 };
 
-//All types types can be casted to double so im using this
-ComplexNumber operator+(const double d, const ComplexNumber& z);
-ComplexNumber operator-(const double d, const ComplexNumber& z);
-ComplexNumber operator*(const double d, const ComplexNumber& z);
-ComplexNumber operator/(const double d, const ComplexNumber& z);
+ComplexNumber operator+(const ComplexNumber& left, const ComplexNumber& right);
+ComplexNumber operator-(const ComplexNumber& left, const ComplexNumber& right);
+ComplexNumber operator*(const ComplexNumber& left, const ComplexNumber& right);
+ComplexNumber operator/(const ComplexNumber& left, const ComplexNumber& right);
+
+bool operator==(const ComplexNumber& left, const ComplexNumber& right);
+bool operator!=(const ComplexNumber& left, const ComplexNumber& right);
+
 
 #endif // !COMPLEX_NUMBER

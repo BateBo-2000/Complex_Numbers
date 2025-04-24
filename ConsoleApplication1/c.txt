@@ -1,4 +1,0 @@
-#include <iostream> // This is a comment
-/* Multi-line comment
-   should remain untouched */int main(){std::cout <<"Hello";// Inline comment
-return 0;/* Another comment */}}

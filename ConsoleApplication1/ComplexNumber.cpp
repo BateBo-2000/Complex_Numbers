@@ -25,47 +25,24 @@ ComplexNumber ComplexNumber::operator-() const {
 	return z;
 }
 
-ComplexNumber ComplexNumber::operator+(const ComplexNumber& other) const {
-	ComplexNumber z(*this);
-	z += other;
-	return z;
-}
 ComplexNumber& ComplexNumber::operator+=(const ComplexNumber& other) {
 	this->real += other.real;
 	this->im += other.im;
 	return *this;
 }
 
-
-ComplexNumber ComplexNumber::operator-(const ComplexNumber& other) const {
-	ComplexNumber z(*this);
-	z -= other;
-	return z;
-}
 ComplexNumber& ComplexNumber::operator-=(const ComplexNumber& other) {
 	this->real -= other.real;
 	this->im -= other.real;
 	return *this;
 }
 
-
-ComplexNumber ComplexNumber::operator*(const ComplexNumber& other) const {
-	ComplexNumber z(*this);
-	z *= other;
-	return z;
-}
 ComplexNumber& ComplexNumber::operator*=(const ComplexNumber& other) {
 	this->real = this->real * other.real - this->im * other.im;
 	this->im = this->real * other.im + this->im * other.real;
 	return *this;
 }
 
-
-ComplexNumber ComplexNumber::operator/(const ComplexNumber& other) const {
-	ComplexNumber z(*this);
-	z /= other;
-	return z;
-}
 ComplexNumber& ComplexNumber::operator/=(const ComplexNumber& other) {
 	//for readability
 	double a = this->real;
@@ -78,14 +55,6 @@ ComplexNumber& ComplexNumber::operator/=(const ComplexNumber& other) {
 	this->real = (a * c + b * d) / (c * c + d * d);
 	this->im = (b * c - a * d) / (c * c + d * d);
 	return *this;
-}
-
-
-bool ComplexNumber::operator==(const ComplexNumber& other) const {
-	return (this->real == other.real && this->im == other.im);
-}
-bool ComplexNumber::operator!=(const ComplexNumber& other) const {
-	return !(*this == other);
 }
 
 std::istream& operator>>(std::istream& input, ComplexNumber& z) {
@@ -104,7 +73,7 @@ std::istream& operator>>(std::istream& input, ComplexNumber& z) {
 		if (positive == false) z.im *= -1;
 	}
 	else {
-		z.im = 0;
+		input.setstate(std::ios::failbit);
 	}
 	
 	return input;
@@ -137,15 +106,26 @@ void ComplexNumber::Im(double i) {
 }
 
 
-ComplexNumber operator+(const double d, const ComplexNumber& z) {
-	return z + d;
+ComplexNumber operator+(const ComplexNumber& left, const ComplexNumber& right) {
+	ComplexNumber z(left);
+	return (z += right);
 }
-ComplexNumber operator-(const double d, const ComplexNumber& z) {
-	return z - d;
+ComplexNumber operator-(const ComplexNumber& left, const ComplexNumber& right) {
+	ComplexNumber z(left);
+	return (z -= right);
 }
-ComplexNumber operator*(const double d, const ComplexNumber& z) {
-	return z * d;
+ComplexNumber operator*(const ComplexNumber& left, const ComplexNumber& right) {
+	ComplexNumber z(left);
+	return (z *= right);
 }
-ComplexNumber operator/(const double d, const ComplexNumber& z) {
-	return z / d;
+ComplexNumber operator/(const ComplexNumber& left, const ComplexNumber& right) {
+	ComplexNumber z(left);
+	return (z /= right);
+}
+
+bool operator==(const ComplexNumber& left, const ComplexNumber& right) {
+	return (left.Re() == right.Re() && left.Im() == right.Im());
+}
+bool operator!=(const ComplexNumber& left, const ComplexNumber& right) {
+	return !(left == right);
 }
